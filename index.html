@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>マギカロギア CCFOLIA出力</title>
+        
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-white text-gray-800 p-6">
+        <div class="max-w-3xl mx-auto space-y-6">
+            <h1 class="text-2xl font-bold border-b pb-2">マギカロギア キャラシート変換ツール</h1>
+            
+            <!-- URL入力 -->
+            <div class="border border-gray-300 rounded p-4">
+                <label class="block font-medium mb-2">キャラシートのURLを入力してください</label>
+                <input type="text" id="character_sheets_url" placeholder="https://character-sheets.appspot.com/mglg/..." class="w-full border rounded px-3 py-2" />
+                <button id="conversion" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">変換</button>
+            </div>
+            
+            <!-- 設定エリア -->
+            <div id="option" class="border border-gray-300 rounded p-4 space-y-4">
+                <div id="all">
+                    <label class="block font-medium mb-1">全体の形式</label>
+                    <select id="format_type" class="border rounded px-2 py-1">
+                        <option value="standard">標準</option>
+                        <option value="brief">簡略</option>
+                        <option value="expansion">拡張</option>
+                        <option value="custom">カスタム</option>
+                    </select>
+                    <label class="block">
+                        <input type="checkbox" id="add_brackets_magic_name" checked class="mr-2"> 魔法名に【】を付ける (すでに付いている場合はスキップ)
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="add_brackets_designated_specialties" checked class="mr-2"> 指定特技に《》を付ける (すでに付いている場合はスキップ)
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="add_p_reference_page" checked class="mr-2"> 参照ページにPを付ける (すでに付いている場合はスキップ)
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_character_sheets_url" class="mr-2"> キャラクターシートのURLを記載する
+                    </label>
+                </div>
+                
+                <div id="library" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-1">蔵書の形式</label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_magic_name" class="mr-2"> 魔法名を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_magic_type" class="mr-2"> 魔法タイプを記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_designated_specialties" class="mr-2"> 指定特技を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_goals" class="mr-2"> 目標を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_mana" class="mr-2"> 魔素を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_reference_page" class="mr-2"> 参照ページを記載する
+                    </label>
+                </div>
+                
+                <div id="anchor" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-1">アンカーの形式</label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_name" class="mr-2"> 名前を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_destiny" class="mr-2"> 運命を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_attribute" class="mr-2"> 属性を記載する
+                    </label>
+                </div>
+                
+                <div id="memo" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-1">メモの形式</label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_magic_name" class="mr-2"> 魔法名を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_gender" class="mr-2"> 性別を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_age" class="mr-2"> 年齢を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_stage" class="mr-2"> 階梯を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_field" class="mr-2"> 領域を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_attribute" class="mr-2"> 能力値を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_background_and_institution" class="mr-2"> 経歴/機関を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_belief" class="mr-2"> 信条を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_public_face" class="mr-2"> 表の顔を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_memo" class="mr-2"> メモを記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_true_form" class="mr-2"> 真の姿を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_effect_true_form" class="mr-2"> 真の姿の効果を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_library" class="mr-2"> 蔵書を記載する
+                    </label>
+                </div>
+                
+                <div id="chat_palette" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-1">チャットパレットの形式</label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_magic_name" class="mr-2"> 魔法名を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_true_form" class="mr-2"> 真の姿とその効果を記載する
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" id="mention_library" class="mr-2"> 蔵書を記載する
+                    </label>
+                </div>
+            </div>
+            
+            <!-- 出力エリア -->
+            <div id="output" class="border border-gray-300 rounded p-4 space-y-4">
+                <label class="block font-medium mb-2">変換結果一覧</label>
+                <div id="ccfolia" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-2">ココフォリア式出力</label>
+                    <textarea readonly id="result" class="w-full h-40 border rounded p-2" placeholder="ここに変換結果が表示されます"></textarea>
+                    <button id="copy" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">コピー</button>
+                </div>
+                <div id="dice_spec" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-2">ダイススペック式出力</label>
+                    <textarea readonly id="result" class="w-full h-40 border rounded p-2" placeholder="ここに変換結果が表示されます"></textarea>
+                    <button id="copy" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">コピー</button>
+                </div>
+                <div id="memo" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-2">ココフォリア式メモ出力</label>
+                    <textarea readonly id="result" class="w-full h-40 border rounded p-2" placeholder="ここに変換結果が表示されます"></textarea>
+                    <button id="copy" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">コピー</button>
+                </div>
+                <div id="chat_palette" class="border border-gray-300 rounded p-4">
+                    <label class="block font-medium mb-2">ココフォリア式チャットパレット出力</label>
+                    <textarea readonly id="result" class="w-full h-40 border rounded p-2" placeholder="ここに変換結果が表示されます"></textarea>
+                    <button id="copy" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">コピー</button>
+                </div>
+            </div>
+        </div>
+        
+        <script src="public/js/jquery-3.7.1.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
