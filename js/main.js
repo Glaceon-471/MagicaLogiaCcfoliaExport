@@ -89,6 +89,7 @@ const memo_mention_public_face = MemoOption("#mention_public_face");
 const memo_mention_memo = MemoOption("#mention_memo");
 const memo_mention_true_form = MemoOption("#mention_true_form");
 const memo_mention_effect_true_form = MemoOption("#mention_effect_true_form");
+const memo_mention_soul_specialties = MemoOption("#mention_soul_specialties");
 const memo_mention_library = MemoOption("#mention_library");
 
 // チャットパレットの形式
@@ -125,6 +126,7 @@ all_format_type.on("change", () => {
             memo_mention_memo.prop("checked", false);
             memo_mention_true_form.prop("checked", false);
             memo_mention_effect_true_form.prop("checked", false);
+            memo_mention_soul_specialties.prop("checked", false);
             memo_mention_library.prop("checked", false);
             
             // チャットパレットの形式
@@ -154,6 +156,7 @@ all_format_type.on("change", () => {
             memo_mention_memo.prop("checked", false);
             memo_mention_true_form.prop("checked", false);
             memo_mention_effect_true_form.prop("checked", false);
+            memo_mention_soul_specialties.prop("checked", false);
             memo_mention_library.prop("checked", false);
             
             // チャットパレットの形式
@@ -183,6 +186,7 @@ all_format_type.on("change", () => {
             memo_mention_memo.prop("checked", false);
             memo_mention_true_form.prop("checked", true);
             memo_mention_effect_true_form.prop("checked", true);
+            memo_mention_soul_specialties.prop("checked", true);
             memo_mention_library.prop("checked", true);
             
             // チャットパレットの形式
@@ -256,12 +260,12 @@ function AddBracketsMagicName(name) {
 }
 
 const BracketsDesignatedSpecialties = /^《.+》$/
-const ExclusionBracketsDesignatedSpecialties = /可変/
 /**
  * @param {String} name 
  */
 function AddBracketsDesignatedSpecialties(name) {
-    if (ExclusionBracketsDesignatedSpecialties.test(name)) return "可変";
+    if (name.includes("可変")) return "可変";
+    else if (name.includes("なし")) return "なし";
     else if (all_add_brackets_designated_specialties.prop("checked")) {
         if (BracketsDesignatedSpecialties.test(name)) return name;
         else return `《${name}》`;
@@ -390,6 +394,7 @@ function ResultGenerate(data) {
     if (memo_mention_memo.prop("checked") && !CheckBlank(data.base.memo)) add_memo("メモ :\n{0}", data.base.memo);
     if (memo_mention_true_form.prop("checked") && !CheckBlank(data.trueform.name)) add_memo("真の姿 : {0}", data.trueform.name);
     if (memo_mention_effect_true_form.prop("checked") && !CheckBlank(data.trueform.effect)) add_memo("真の姿の効果 : {0}", data.trueform.effect);
+    if (memo_mention_soul_specialties.prop("checked") && !CheckBlank(data.soul.skill)) add_memo("魂の特技 : {0}", data.soul.skill)
     if (memo_mention_library.prop("checked") && library.length > 0) {
         add_memo("蔵書 :\n{0}", library.join("\n"));
     }
